@@ -11,3 +11,7 @@ artifacts/screens-*/
 .vs/
 TidyC-Data/
 .token
+tools/gh/
+artifacts/gh-*.json
+artifacts/gh-*.txt
+artifacts/repo.json

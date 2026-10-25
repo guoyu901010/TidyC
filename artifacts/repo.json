@@ -1,8 +1,0 @@
-{
-    "name":  "TidyC",
-    "has_wiki":  false,
-    "description":  "TidyC — Windows C 盘扫描、物理占用归因与安全清理（.NET 8 + WPF）",
-    "has_projects":  false,
-    "has_issues":  true,
-    "private":  false
-}
