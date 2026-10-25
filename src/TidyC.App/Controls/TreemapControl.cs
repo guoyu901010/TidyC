@@ -165,8 +165,23 @@ public sealed class TreemapControl : FrameworkElement
     protected override void OnMouseMove(MouseEventArgs e)
     {
         base.OnMouseMove(e);
+
+        // Before the first scan the treemap has no root; hovering must be inert
+        // rather than calling HitTest(null).
+        if (Root is null)
+        {
+            if (_hover is not null || ToolTip is not null)
+            {
+                _hover = null;
+                ToolTip = null;
+                InvalidateVisual();
+            }
+
+            return;
+        }
+
         Point point = e.GetPosition(this);
-        SpaceNode? hit = TreemapTiler.HitTest(Root!, point.X, point.Y);
+        SpaceNode? hit = TreemapTiler.HitTest(Root, point.X, point.Y);
         if (!ReferenceEquals(hit, _hover))
         {
             _hover = hit;
