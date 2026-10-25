@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>TidyC</AssemblyName>
+    <RootNamespace>TidyC.App</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>AnyCPU;x64</Platforms>
+    <StartupObject>TidyC.App.App</StartupObject>
+    <Version>2.4.0</Version>
+    <FileVersion>2.4.0.0</FileVersion>
+    <AssemblyVersion>2.4.0.0</AssemblyVersion>
+    <Company>TidyC</Company>
+    <Product>TidyC 磁盘空间扫描与安全清理</Product>
+    <Description>TidyC — Windows C 盘扫描、物理占用归因与安全清理（TidyC 规范实现）</Description>
+    <Copyright>Copyright © 2026 TidyC contributors</Copyright>
+    <ApplicationIcon>Assets\TidyC.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\TidyC.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TidyC.Core\TidyC.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,290 @@
+<UserControl x:Class="TidyC.App.Views.QuarantineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="900" d:DesignWidth="1180"
+             Background="Transparent">
+    <Grid Margin="30,20,30,22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,14">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="隔离区安全管理与 14 天可逆回滚" Style="{StaticResource Text.Title}" />
+                    <Border Style="{StaticResource Pill.Green}" Margin="12,0,0,0">
+                        <TextBlock Text="同卷零拷贝原子改名 · 享 14 天原路可逆保障" FontSize="10.5"
+                                   Foreground="{StaticResource Brush.Risk.Safe.Light}" />
+                    </Border>
+                </StackPanel>
+                <TextBlock Text="{Binding RootText, StringFormat=隔离根路径: {0} · 批次事务完整性签名防护}"
+                           Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Style="{StaticResource TidyC.Button.Secondary}" Command="{Binding OpenJournalsCommand}"
+                        ToolTip="打开 append-only 审计日志目录（journal-*.jsonl）">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE9D5;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="12" VerticalAlignment="Center" />
+                        <TextBlock Text="查看事务日志 (.jsonl)" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource TidyC.Button.Danger}" Margin="8,0,0,0" Command="{Binding PurgeExpiredCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE74D;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="12" VerticalAlignment="Center" />
+                        <TextBlock Text="清空并物理释放过期项" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Warning -->
+        <Border Grid.Row="1" Background="#22FFB900" BorderBrush="#44FFB900" BorderThickness="1" CornerRadius="6"
+                Padding="12,8" Margin="0,0,0,14"
+                Visibility="{Binding HasWarning, Converter={StaticResource BoolVisibility}}">
+            <TextBlock Text="{Binding WarningText}" FontSize="11.5" Foreground="{StaticResource Brush.Risk.Caution.Warm}"
+                       TextWrapping="Wrap" />
+        </Border>
+
+        <!-- Honest dual metric cards -->
+        <Grid Grid.Row="2" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource TidyC.Container.Card}" Padding="16,13"
+                    Background="#160078D4" BorderBrush="#330078D4">
+                <StackPanel>
+                    <TextBlock Text="隔离区暂存总量 (可恢复)" Style="{StaticResource Text.Caption}" Foreground="{StaticResource Brush.Primary.Soft}" />
+                    <TextBlock Text="{Binding StagedText}" Style="{StaticResource Text.Metric}" FontSize="25"
+                               Foreground="{StaticResource Brush.Primary.Soft}" Margin="0,8,0,2" />
+                    <TextBlock Text="当前仍占用的 C 盘物理空间（同卷暂存）" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource TidyC.Container.Card}" Padding="16,13">
+                <StackPanel>
+                    <TextBlock Text="已物理抹除净释放" Style="{StaticResource Text.Caption}" />
+                    <TextBlock Text="{Binding PurgedText}" Style="{StaticResource Text.Metric}" FontSize="25"
+                               Foreground="{StaticResource Brush.Risk.Safe.Light}" Margin="0,8,0,2" />
+                    <TextBlock Text="簇位已被真正标记释放回操作系统" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="4" Style="{StaticResource TidyC.Container.Card}" Padding="16,13">
+                <StackPanel>
+                    <TextBlock Text="受保暂存批次 / 条目" Style="{StaticResource Text.Caption}" />
+                    <TextBlock Text="{Binding BatchCountText}" Style="{StaticResource Text.Metric}" FontSize="25"
+                               Foreground="{StaticResource Brush.Text.Primary}" Margin="0,8,0,2" />
+                    <TextBlock Text="每个批次都有独立事务清单与哈希链" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="6" Style="{StaticResource TidyC.Container.Card}" Padding="16,13">
+                <StackPanel>
+                    <TextBlock Text="最近到期时间" Style="{StaticResource Text.Caption}" />
+                    <TextBlock Text="{Binding ExpiryText}" Style="{StaticResource Text.Metric}" FontSize="25"
+                               Foreground="{StaticResource Brush.Risk.Caution.Warm}" Margin="0,8,0,2" />
+                    <TextBlock Text="到期前系统不触发任何自动静默抹除" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Batches + detail -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MinWidth="330" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="1.32*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource TidyC.Container.Card}" Padding="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="2,0,2,8">
+                        <TextBlock Text="批次清单" Style="{StaticResource Text.H2}" />
+                        <TextBlock Text="{Binding StatusText}" Style="{StaticResource Text.Caption}" HorizontalAlignment="Right" />
+                    </Grid>
+
+                    <ListBox Grid.Row="1" Style="{StaticResource TidyC.List}" ItemContainerStyle="{StaticResource TidyC.ListItem}"
+                             ItemsSource="{Binding Batches}" SelectedItem="{Binding SelectedBatch, Mode=TwoWay}"
+                             Background="Transparent">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid>
+                                        <TextBlock Text="{Binding BatchId}" FontFamily="{StaticResource FontFamily.Code}"
+                                                   FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" />
+                                        <Border Style="{StaticResource Pill.Neutral}" HorizontalAlignment="Right">
+                                            <TextBlock Text="{Binding StatusText}" FontSize="9.5" Foreground="{Binding StatusBrush}" />
+                                        </Border>
+                                    </Grid>
+                                    <TextBlock Text="{Binding Description}" FontSize="12" Margin="0,5,0,0"
+                                               Foreground="{StaticResource Brush.Text.Primary}" TextTrimming="CharacterEllipsis" />
+                                    <Grid Margin="0,6,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding ItemCountText}" Style="{StaticResource Text.Caption}" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <TextBlock Text="{Binding SizeText}" FontSize="11.5"
+                                                       Foreground="{StaticResource Brush.Text.Secondary}" />
+                                            <TextBlock Text=" · " Style="{StaticResource Text.Caption}" />
+                                            <TextBlock Text="{Binding DaysLeftText}" FontSize="10.5" Foreground="{Binding StatusBrush}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Visibility="{Binding HasBatches, Converter={StaticResource InverseBoolVisibility}}">
+                        <TextBlock Text="&#xE72E;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="32"
+                                   Foreground="{StaticResource Brush.Text.Disabled}" HorizontalAlignment="Center" />
+                        <TextBlock Text="隔离区为空" FontSize="13" FontWeight="SemiBold" Margin="0,10,0,4"
+                                   Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                        <TextBlock Text="安全清理后，文件会先到这里暂存 14 天" Style="{StaticResource Text.Caption}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Detail -->
+            <Border Grid.Column="2" Style="{StaticResource TidyC.Container.Card}" Padding="16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,10"
+                          Visibility="{Binding SelectedBatch, Converter={StaticResource NullVisibility}}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding SelectedBatch.BatchId, FallbackValue=批次详情}" Style="{StaticResource Text.H2}" />
+                            <TextBlock Text="{Binding SelectedBatch.Description}" Style="{StaticResource Text.Caption}" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Style="{StaticResource TidyC.Button.Safe}" Content="一键原子还原" Padding="12,6"
+                                    IsEnabled="{Binding HasSelectedBatch}"
+                                    Command="{Binding RestoreCommand}" CommandParameter="{Binding SelectedBatch}" />
+                            <Button Style="{StaticResource TidyC.Button.Danger}" Content="物理彻底抹除" Padding="12,6" Margin="8,0,0,0"
+                                    IsEnabled="{Binding HasSelectedBatch}"
+                                    Command="{Binding PurgeCommand}" CommandParameter="{Binding SelectedBatch}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,10"
+                          Visibility="{Binding SelectedBatch, Converter={StaticResource NullVisibility}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.6*" /><ColumnDefinition Width="*" /><ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="创建 / 到期" Style="{StaticResource Text.Label}" />
+                            <TextBlock Style="{StaticResource Text.Caption}" Margin="0,3,0,0">
+                                <Run Text="{Binding SelectedBatch.CreatedText, Mode=OneWay}" />
+                                <Run Text="  →  " />
+                                <Run Text="{Binding SelectedBatch.ExpiresText, Mode=OneWay}" />
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="合计 / 项数" Style="{StaticResource Text.Label}" />
+                            <TextBlock Style="{StaticResource Text.Caption}" Margin="0,3,0,0">
+                                <Run Text="{Binding SelectedBatch.SizeText, Mode=OneWay}" />
+                                <Run Text=" · " />
+                                <Run Text="{Binding SelectedBatch.ItemCountText, Mode=OneWay}" />
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="移入耗时" Style="{StaticResource Text.Label}" />
+                            <TextBlock Text="{Binding SelectedBatch.MoveDurationText}" Style="{StaticResource Text.Caption}"
+                                       Margin="0,3,0,0" />
+                        </StackPanel>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                                  Visibility="{Binding SelectedBatch, Converter={StaticResource NullVisibility}}">
+                        <ItemsControl ItemsSource="{Binding SelectedBatch.Records}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource TidyC.Container.Inset}" Padding="10,8" Margin="0,0,0,4">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="90" />
+                                                <ColumnDefinition Width="70" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Margin="0,0,10,0">
+                                                <TextBlock Text="{Binding OriginalPath}" FontFamily="{StaticResource FontFamily.Code}"
+                                                           FontSize="10.5" Foreground="{StaticResource Brush.Text.Primary}"
+                                                           TextTrimming="CharacterEllipsis" ToolTip="{Binding OriginalPath}" />
+                                                <TextBlock Style="{StaticResource Text.Caption}" FontSize="10" Margin="0,3,0,0">
+                                                    <Run Text="FileId " />
+                                                    <Run Text="{Binding FileId, Mode=OneWay}" />
+                                                    <Run Text=" · SHA-256 " />
+                                                    <Run Text="{Binding HashText, Mode=OneWay}" />
+                                                </TextBlock>
+                                                <TextBlock Text="{Binding ConflictPath, StringFormat=冲突让位 → {0}}" Style="{StaticResource Text.Caption}"
+                                                           FontSize="10" Foreground="{StaticResource Brush.Risk.Caution.Warm}"
+                                                           Visibility="{Binding HasConflict, Converter={StaticResource BoolVisibility}}" />
+                                            </StackPanel>
+                                            <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                                                <TextBlock Text="{Binding SizeText}" FontSize="12" FontWeight="SemiBold"
+                                                           HorizontalAlignment="Right" Foreground="{StaticResource Brush.Text.Primary}" />
+                                                <TextBlock Text="{Binding MovedText}" Style="{StaticResource Text.Caption}"
+                                                           FontSize="9.5" HorizontalAlignment="Right" Margin="0,2,0,0" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="2" Text="{Binding StateText}" FontSize="10.5"
+                                                       HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                       Foreground="{Binding StateBrush}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <Border Grid.Row="3" Background="#160078D4" BorderBrush="#330078D4" BorderThickness="1"
+                            CornerRadius="6" Padding="10,8" Margin="0,10,0,0">
+                        <TextBlock Text="🛡 还原过程实时校验 FileIndex 与 SHA-256 指纹，防止覆盖被新写入的活跃文件；同名冲突会自动追加 _restore_conflict_ 时间戳。"
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
+                    </Border>
+
+                    <StackPanel Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Visibility="{Binding SelectedBatch, Converter={StaticResource NullVisibility}, ConverterParameter=invert}">
+                        <TextBlock Text="选择一个批次查看明细" Style="{StaticResource Text.Caption}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Policy footer -->
+        <Border Grid.Row="4" Margin="0,14,0,0" Background="{StaticResource Brush.Surface.ContainerLow}"
+                BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Padding="16,10">
+            <Grid>
+                <TextBlock Text="🧾 每次搬移 / 还原 / 抹除都会在落盘前写入 journal-*.jsonl，并带 prev_hash 哈希链；隔离区与源文件必须同卷。"
+                           FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" />
+                <Button Style="{StaticResource TidyC.Button.Ghost}" HorizontalAlignment="Right" Padding="8,2"
+                        Content="打开隔离区根目录" Command="{Binding RevealRootCommand}" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

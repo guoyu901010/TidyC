@@ -1,0 +1,10 @@
+{
+  "root": "C:\\Windows",
+  "engine": "DIRECTORY_TREE_WALKER",
+  "files": 207354,
+  "directories": 82516,
+  "attributed_bytes": 24455675904,
+  "elapsed_seconds": 10.288,
+  "access_denied": 41,
+  "run_at": "2026-10-25T19:47:55.9974069+08:00"
+}

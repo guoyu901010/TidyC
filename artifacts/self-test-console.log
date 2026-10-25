@@ -1,0 +1,4 @@
+
+==== TidyC 双引擎对拍自检 (--self-test) ====
+MFT 直读不可用：需要管理员权限才能直读 $MFT（请以 UAC 提权重启）
+自检需要管理员权限；请通过 UAC 提权后重新运行 `TidyC.exe --self-test`。

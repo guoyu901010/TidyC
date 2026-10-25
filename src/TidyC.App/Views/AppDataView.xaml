@@ -1,0 +1,260 @@
+<UserControl x:Class="TidyC.App.Views.AppDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="900" d:DesignWidth="1180"
+             Background="Transparent">
+    <Grid Margin="30,20,30,22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="AppData 空间深度排查与四级安全判定" Style="{StaticResource Text.Title}" />
+                    <Border Style="{StaticResource Pill.Neutral}" Margin="12,0,0,0">
+                        <TextBlock Text="{Binding RulesetText}" Style="{StaticResource Text.Mono}" TextTrimming="CharacterEllipsis"
+                                   MaxWidth="380" ToolTip="{Binding RulesetText}" />
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <CheckBox Style="{StaticResource TidyC.CheckBox}" Content="%LOCALAPPDATA% (Local)"
+                              IsChecked="{Binding ScopeLocal}" Margin="0,0,18,0" />
+                    <CheckBox Style="{StaticResource TidyC.CheckBox}" Content="%APPDATA% (Roaming)"
+                              IsChecked="{Binding ScopeRoaming}" Margin="0,0,18,0" />
+                    <CheckBox Style="{StaticResource TidyC.CheckBox}" Content="LocalLow"
+                              IsChecked="{Binding ScopeLocalLow}" Margin="0,0,18,0" />
+                    <CheckBox Style="{StaticResource TidyC.CheckBox}" Content="包含未识别 (灰)"
+                              IsChecked="{Binding IncludeGray}" />
+                    <TextBlock Text="{Binding ScanMeta}" Style="{StaticResource Text.Caption}" VerticalAlignment="Center" Margin="18,0,0,0" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Style="{StaticResource TidyC.Button.Secondary}" Command="{Binding RescanCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBool}}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE72C;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="12" VerticalAlignment="Center" />
+                        <TextBlock Text="重新分析" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource TidyC.Button.Secondary}" Margin="8,0,0,0" Command="{Binding ExportJsonCommand}"
+                        ToolTip="导出 appdata-report.json（四级判定契约）">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE78C;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="12" VerticalAlignment="Center" />
+                        <TextBlock Text="导出 JSON 报告" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Metric cards -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource TidyC.Container.Card}" Padding="16,13"
+                    Background="#14107C41" BorderBrush="#33107C41">
+                <StackPanel>
+                    <TextBlock Text="绿 · 可安全清理 (可再生)" FontSize="11.5" FontWeight="SemiBold"
+                               Foreground="{StaticResource Brush.Risk.Safe.Light}" />
+                    <TextBlock Text="{Binding GreenText}" Style="{StaticResource Text.Metric}" FontSize="24"
+                               Foreground="{StaticResource Brush.Risk.Safe.Light}" Margin="0,8,0,2" />
+                    <TextBlock Text="Cache, logs, *.dmp" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource TidyC.Container.Card}" Padding="16,13"
+                    Background="#14FFB900" BorderBrush="#33FFB900">
+                <StackPanel>
+                    <TextBlock Text="黄 · 需谨慎清理 (按需下载)" FontSize="11.5" FontWeight="SemiBold"
+                               Foreground="{StaticResource Brush.Risk.Caution.Warm}" />
+                    <TextBlock Text="{Binding YellowText}" Style="{StaticResource Text.Metric}" FontSize="24"
+                               Foreground="{StaticResource Brush.Risk.Caution.Warm}" Margin="0,8,0,2" />
+                    <TextBlock Text="CachedExtensions, ServiceWorker" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="4" Style="{StaticResource TidyC.Container.Card}" Padding="16,13"
+                    Background="#14E81123" BorderBrush="#33E81123">
+                <StackPanel>
+                    <TextBlock Text="红 · 严禁清理 (核心保留)" FontSize="11.5" FontWeight="SemiBold"
+                               Foreground="{StaticResource Brush.Risk.Preserve}" />
+                    <TextBlock Text="{Binding RedText}" Style="{StaticResource Text.Metric}" FontSize="24"
+                               Foreground="{StaticResource Brush.Risk.Preserve}" Margin="0,8,0,2" />
+                    <TextBlock Text="Local Storage, Cookies, 微信聊天库 (禁选)" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="6" Style="{StaticResource TidyC.Container.Card}" Padding="16,13">
+                <StackPanel>
+                    <TextBlock Text="灰 · 未识别项 (默认保留)" FontSize="11.5" FontWeight="SemiBold"
+                               Foreground="{StaticResource Brush.Risk.Unrecognized}" />
+                    <TextBlock Text="{Binding GrayText}" Style="{StaticResource Text.Metric}" FontSize="24"
+                               Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,8,0,2" />
+                    <TextBlock Text="非白名单收录 · 硬编码锁定" Style="{StaticResource Text.Caption}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- App list -->
+        <Border Grid.Row="2" Style="{StaticResource TidyC.Container.Card}" Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,8">
+                    <TextBlock Text="应用分组与条目级判定" Style="{StaticResource Text.H2}" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding StatusText}" Style="{StaticResource Text.Caption}" />
+                        <Button Style="{StaticResource TidyC.Button.Ghost}" Padding="8,2" Margin="10,0,0,0"
+                                Content="仅选绿色" Command="{Binding SelectGreenOnlyCommand}" />
+                        <Button Style="{StaticResource TidyC.Button.Ghost}" Padding="8,2" Margin="6,0,0,0"
+                                Content="全选绿+黄" Command="{Binding SelectSafeCommand}" />
+                        <Button Style="{StaticResource TidyC.Button.Ghost}" Padding="8,2" Margin="6,0,0,0"
+                                Content="清空选择" Command="{Binding ClearSelectionCommand}" />
+                    </StackPanel>
+                </Grid>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Groups}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,2,0,14">
+                                    <Grid Margin="2,0,4,7">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding AppName}" FontSize="13" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource Brush.Text.Primary}" />
+                                            <TextBlock Text="{Binding AppId}" Style="{StaticResource Text.Mono}" Margin="8,0,0,0"
+                                                       VerticalAlignment="Center" />
+                                            <Border Style="{StaticResource Pill.Neutral}" Margin="10,0,0,0">
+                                                <TextBlock Text="{Binding RiskSummary}" FontSize="10"
+                                                           Foreground="{StaticResource Brush.Text.Secondary}" />
+                                            </Border>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <TextBlock Text="合计 " Style="{StaticResource Text.Caption}" VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding TotalText}" FontSize="12" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource Brush.Text.Primary}" />
+                                            <TextBlock Text="  可清理 " Style="{StaticResource Text.Caption}" VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding SelectableText}" FontSize="12"
+                                                       Foreground="{StaticResource Brush.Risk.Safe.Light}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="{Binding RiskLevel, Converter={StaticResource RiskSoft}}"
+                                                        CornerRadius="6" Padding="10,8" Margin="0,0,0,4">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="26" />
+                                                            <ColumnDefinition Width="104" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="84" />
+                                                            <ColumnDefinition Width="24" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <CheckBox Style="{StaticResource TidyC.CheckBox}"
+                                                                  VerticalAlignment="Top" Margin="0,2,0,0"
+                                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                                  IsEnabled="{Binding IsSelectable}" />
+                                                        <Border Grid.Column="1" Style="{Binding RiskLevel, Converter={StaticResource RiskPill}}"
+                                                                VerticalAlignment="Top" Margin="0,1,8,0" HorizontalAlignment="Left">
+                                                            <TextBlock Text="{Binding RiskLevel, Converter={StaticResource RiskText}}" TextWrapping="NoWrap"
+                                                                       FontSize="9.5" Foreground="{Binding RiskLevel, Converter={StaticResource RiskBrush}}"
+                                                                       TextAlignment="Center" />
+                                                        </Border>
+
+                                                        <StackPanel Grid.Column="2" Margin="0,0,12,0">
+                                                            <TextBlock Text="{Binding RelativePath}" FontFamily="{StaticResource FontFamily.Code}"
+                                                                       FontSize="11.5" Foreground="{StaticResource Brush.Text.Primary}"
+                                                                       TextTrimming="CharacterEllipsis" ToolTip="{Binding RelativePath}" />
+                                                            <TextBlock Text="{Binding Purpose}" FontSize="11.5"
+                                                                       Foreground="{StaticResource Brush.Text.Secondary}"
+                                                                       TextWrapping="Wrap" Margin="0,3,0,0" />
+                                                            <TextBlock Text="{Binding Consequence}" FontSize="10.5"
+                                                                       Foreground="{StaticResource Brush.Text.Tertiary}"
+                                                                       TextWrapping="Wrap" Margin="0,2,0,0" />
+                                                            <TextBlock Text="{Binding Evidence}" Style="{StaticResource Text.Mono}"
+                                                                       FontSize="10" Margin="0,3,0,0" TextTrimming="CharacterEllipsis" />
+                                                        </StackPanel>
+
+                                                        <StackPanel Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                                            <TextBlock Text="{Binding SizeText}" FontSize="13" FontWeight="SemiBold"
+                                                                       Foreground="{StaticResource Brush.Text.Primary}"
+                                                                       HorizontalAlignment="Right" />
+                                                            <TextBlock Text="{Binding FileCountText}" Style="{StaticResource Text.Caption}"
+                                                                       FontSize="10" HorizontalAlignment="Right" Margin="0,2,0,0" />
+                                                            <TextBlock Text="{Binding KindText}" Style="{StaticResource Text.Caption}"
+                                                                       FontSize="10" HorizontalAlignment="Right" />
+                                                        </StackPanel>
+
+                                                        <TextBlock Grid.Column="4" Text="&#xE72E;" FontFamily="{StaticResource FontFamily.FluentIcon}"
+                                                                   FontSize="11" Foreground="{StaticResource Brush.Risk.Preserve}"
+                                                                   HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                                   Visibility="{Binding IsLocked, Converter={StaticResource BoolVisibility}}"
+                                                                   ToolTip="{Binding LockHint}" />
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Visibility="{Binding HasReport, Converter={StaticResource InverseBoolVisibility}}">
+                    <TextBlock Text="&#xE7C3;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="34"
+                               Foreground="{StaticResource Brush.Text.Disabled}" HorizontalAlignment="Center" />
+                    <TextBlock Text="尚未完成 AppData 分析" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,4"
+                               Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                    <TextBlock Text="点击「MFT 快速扫描」后会同时生成四级安全判定" Style="{StaticResource Text.Caption}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Footer -->
+        <Border Grid.Row="3" Background="{StaticResource Brush.Surface.ContainerLow}"
+                BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1"
+                CornerRadius="8" Padding="16,12" Margin="0,14,0,0">
+            <Grid>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock FontSize="12" Foreground="{StaticResource Brush.Text.Secondary}">
+                        <Run Text="⚡ 采用同卷原子改名搬移入隔离区（耗时 &lt; 0.1s），14 天完整可恢复。" />
+                    </TextBlock>
+                    <TextBlock Text="{Binding SelectedCountText}" Style="{StaticResource Text.Caption}" Margin="0,3,0,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding SelectedText, StringFormat=已选 {0}}" FontSize="14" FontWeight="SemiBold"
+                               Foreground="{StaticResource Brush.Risk.Safe.Light}" VerticalAlignment="Center" Margin="0,0,14,0" />
+                    <Button Style="{StaticResource TidyC.Button.Safe}" Command="{Binding MoveCommand}" Padding="20,8"
+                            Content="安全移入隔离区 →" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,310 @@
+<UserControl x:Class="TidyC.App.Views.OverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:TidyC.App.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="900" d:DesignWidth="1180"
+             Background="Transparent">
+    <Grid Margin="30,20,30,22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ============================== Header ============================== -->
+        <Grid Grid.Row="0" Margin="0,0,0,18">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding VolumeTitle}" Style="{StaticResource Text.Title}" />
+                    <Border Style="{StaticResource Pill.Green}" Margin="12,0,0,0">
+                        <TextBlock Text="{Binding EngineBadge}" FontSize="10.5"
+                                   Foreground="{StaticResource Brush.Risk.Safe.Light}" />
+                    </Border>
+                </StackPanel>
+                <TextBlock Text="{Binding VolumeSubtitle}" Style="{StaticResource Text.Caption}" Margin="0,6,0,0" />
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Style="{StaticResource TidyC.Button.Primary}" Command="{Binding ScanCommand}"
+                        IsEnabled="{Binding DataContext.IsScanning, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource InverseBool}}"
+                        ToolTip="F5 · 管理员下直读 $MFT，普通权限下自动回退目录遍历">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE945;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="12" VerticalAlignment="Center" />
+                        <TextBlock Text="MFT 快速扫描 (F5)" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource TidyC.Button.Secondary}" Margin="10,0,0,0" Command="{Binding ExportCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE78C;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="12" VerticalAlignment="Center" />
+                        <TextBlock Text="导出对账报告" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- ============================ Metric cards ========================== -->
+        <Grid Grid.Row="1" Margin="0,0,0,18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" /><ColumnDefinition Width="14" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource TidyC.Container.Card}" Padding="16,14">
+                <StackPanel>
+                    <Grid>
+                        <TextBlock Text="NTFS 物理已用" Style="{StaticResource Text.Caption}" />
+                        <TextBlock Text="{Binding DurationText}" Style="{StaticResource Text.Caption}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <TextBlock Text="{Binding PhysicalUsedText}" Style="{StaticResource Text.Metric}" Margin="0,10,0,4" />
+                    <TextBlock Text="{Binding PhysicalDetailText}" Style="{StaticResource Text.Caption}" />
+                    <Border Style="{StaticResource TidyC.Separator}" Margin="0,10,0,8" />
+                    <TextBlock Text="{Binding ScannedAtText}" Style="{StaticResource Text.Caption}" FontSize="10.5" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource TidyC.Container.Card}" Padding="16,14">
+                <StackPanel>
+                    <TextBlock Text="引擎已归因解析" Style="{StaticResource Text.Caption}" />
+                    <TextBlock Text="{Binding AttributedText}" Style="{StaticResource Text.Metric}"
+                               Foreground="{StaticResource Brush.Primary.Soft}" Margin="0,10,0,4" />
+                    <TextBlock Text="{Binding AttributedDetailText}" Style="{StaticResource Text.Caption}"
+                               Foreground="{StaticResource Brush.Risk.Safe.Light}" />
+                    <Border Style="{StaticResource TidyC.Separator}" Margin="0,10,0,8" />
+                    <TextBlock Text="{Binding FileSummaryText}" Style="{StaticResource Text.Caption}" FontSize="10.5" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="4" Style="{StaticResource TidyC.Container.Card}" Padding="16,14">
+                <StackPanel>
+                    <TextBlock Text="权限隔离盲区" Style="{StaticResource Text.Caption}" />
+                    <TextBlock Text="{Binding BlindspotText}" Style="{StaticResource Text.Metric}"
+                               Foreground="{StaticResource Brush.Risk.Caution.Warm}" Margin="0,10,0,4" />
+                    <TextBlock Text="{Binding BlindspotDetailText}" Style="{StaticResource Text.Caption}" />
+                    <Border Style="{StaticResource TidyC.Separator}" Margin="0,10,0,8" />
+                    <TextBlock Text="{Binding HardLinkText}" Style="{StaticResource Text.Caption}" FontSize="10.5" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="6" Style="{StaticResource TidyC.Container.Card}" Padding="16,14"
+                    Background="#16107C41" BorderBrush="#33107C41">
+                <StackPanel>
+                    <TextBlock Text="白名单可安全释放 (14天可逆)" Style="{StaticResource Text.Caption}"
+                               Foreground="{StaticResource Brush.Risk.Safe.Light}" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding CleanableText}" Style="{StaticResource Text.Metric}"
+                               Foreground="{StaticResource Brush.Risk.Safe.Light}" Margin="0,10,0,4" />
+                    <TextBlock Text="{Binding CleanableDetailText}" Style="{StaticResource Text.Caption}" />
+                    <Border Style="{StaticResource TidyC.Separator}" Margin="0,10,0,8" Background="#22FFFFFF" />
+                    <TextBlock Text="{Binding FreeText, StringFormat=剩余可支配空间 {0}}" Style="{StaticResource Text.Caption}" FontSize="10.5" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- ========================== Spectrum & ledger ======================= -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.62*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Spectrum card -->
+            <Border Grid.Column="0" Style="{StaticResource TidyC.Container.Card}" Padding="18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,14">
+                        <StackPanel>
+                            <TextBlock Text="C盘空间分类占用全息谱图" Style="{StaticResource Text.H2}" />
+                            <TextBlock Text="按 NTFS 分配大小归因 · FRN 硬链接仅计一次 · 悬浮查看分类明细"
+                                       Style="{StaticResource Text.Caption}" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding CapacityText}" Style="{StaticResource Text.Caption}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <controls:SpectrumBar Grid.Row="1" Segments="{Binding Spectrum}" Height="34" Margin="0,0,0,14" />
+
+                    <ItemsControl Grid.Row="2" ItemsSource="{Binding Legend}" Margin="0,0,0,6">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,20,10">
+                                    <Ellipse Width="8" Height="8" Fill="{Binding Brush}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Label}" FontSize="11.5" Margin="7,0,0,0"
+                                               Foreground="{StaticResource Brush.Text.Secondary}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding BytesText}" FontSize="11" Margin="7,0,0,0"
+                                               Foreground="{StaticResource Brush.Text.Tertiary}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Style="{StaticResource TidyC.Separator}" Margin="0,2,0,10" />
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding TopFolders}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,4" ToolTip="{Binding Path}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="86" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="7" Height="7" Fill="{Binding Brush}" VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding Name}" Margin="7,0,0,0" FontSize="12"
+                                                       Foreground="{StaticResource Brush.Text.Secondary}"
+                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <controls:ProportionBar Grid.Column="1" Value="{Binding SizeBytes}"
+                                                                Maximum="{Binding MaxBytes}" BarBrush="{Binding Brush}"
+                                                                Margin="12,0" Height="5" />
+                                        <TextBlock Grid.Column="2" Text="{Binding SizeText}" FontSize="11.5"
+                                                   HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                   Foreground="{StaticResource Brush.Text.Secondary}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <StackPanel Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Visibility="{Binding HasScan, Converter={StaticResource InverseBoolVisibility}}">
+                        <TextBlock Text="&#xE7B8;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="34"
+                                   Foreground="{StaticResource Brush.Text.Disabled}" HorizontalAlignment="Center" />
+                        <TextBlock Text="尚未扫描 C 盘" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,4"
+                                   Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                        <TextBlock Text="点击右上角「MFT 快速扫描」，或按 F5 开始" Style="{StaticResource Text.Caption}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Ledger + posture -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource TidyC.Container.Card}" Padding="18">
+                    <StackPanel>
+                        <TextBlock Text="物理底账对账" Style="{StaticResource Text.H2}" />
+                        <TextBlock Text="引擎归因 vs NTFS 真实占用" Style="{StaticResource Text.Caption}" Margin="0,4,0,12" />
+                        <Grid HorizontalAlignment="Center" Width="128" Height="128">
+                            <controls:DonutGauge Percent="{Binding AttributionRatio}" RingThickness="11"
+                                                 ForegroundBrush="{StaticResource Brush.Primary.Soft}" />
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding AttributionPercent}" FontSize="20" FontWeight="Bold"
+                                           HorizontalAlignment="Center" Foreground="{StaticResource Brush.Text.Primary}" />
+                                <TextBlock Text="归因率" FontSize="9.5" HorizontalAlignment="Center"
+                                           Foreground="{StaticResource Brush.Text.Tertiary}" Margin="0,2,0,0" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Margin="0,14,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" /><RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Text="NTFS 物理已用" Style="{StaticResource Text.Caption}" Margin="0,0,0,7" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding PhysicalUsedText}" FontSize="11.5"
+                                       Foreground="{StaticResource Brush.Text.Primary}" />
+                            <TextBlock Grid.Row="1" Text="引擎已归因" Style="{StaticResource Text.Caption}" Margin="0,0,0,7" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding AttributedText}" FontSize="11.5"
+                                       Foreground="{StaticResource Brush.Primary.Soft}" />
+                            <TextBlock Grid.Row="2" Text="权限隔离盲区" Style="{StaticResource Text.Caption}" Margin="0,0,0,7" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding BlindspotText}" FontSize="11.5"
+                                       Foreground="{StaticResource Brush.Risk.Caution.Warm}" />
+                            <TextBlock Grid.Row="3" Text="白名单可释放" Style="{StaticResource Text.Caption}" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding CleanableText}" FontSize="11.5"
+                                       Foreground="{StaticResource Brush.Risk.Safe.Light}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" Style="{StaticResource TidyC.Container.Card}" Padding="18">
+                    <StackPanel>
+                        <TextBlock Text="引擎与安全姿态" Style="{StaticResource Text.H2}" />
+                        <TextBlock Text="只读扫描 · 不做任何写操作" Style="{StaticResource Text.Caption}" Margin="0,4,0,12" />
+                        <StackPanel>
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="88" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <TextBlock Text="扫描引擎" Style="{StaticResource Text.Caption}" />
+                                <TextBlock Grid.Column="1" Text="{Binding EngineBadge}" FontSize="11.5"
+                                           Foreground="{StaticResource Brush.Text.Secondary}" TextTrimming="CharacterEllipsis" />
+                            </Grid>
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="88" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <TextBlock Text="扫描耗时" Style="{StaticResource Text.Caption}" />
+                                <TextBlock Grid.Column="1" Text="{Binding DurationText}" FontSize="11.5"
+                                           Foreground="{StaticResource Brush.Text.Secondary}" />
+                            </Grid>
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="88" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <TextBlock Text="文件 / 目录" Style="{StaticResource Text.Caption}" />
+                                <TextBlock Grid.Column="1" Text="{Binding FileSummaryText}" FontSize="11.5"
+                                           Foreground="{StaticResource Brush.Text.Secondary}" />
+                            </Grid>
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="88" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <TextBlock Text="去重节省" Style="{StaticResource Text.Caption}" />
+                                <TextBlock Grid.Column="1" Text="{Binding HardLinkText}" FontSize="11.5"
+                                           Foreground="{StaticResource Brush.Risk.Safe.Light}" TextTrimming="CharacterEllipsis" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="88" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <TextBlock Text="安全护栏" Style="{StaticResource Text.Caption}" />
+                                <TextBlock Grid.Column="1" Text="OPEN_REPARSE_POINT · FileId 二次校验 · 同卷原子改名"
+                                           FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- =========================== Recommendation ========================= -->
+        <Border Grid.Row="3" Background="#160078D4" BorderBrush="#330078D4" BorderThickness="1"
+                CornerRadius="8" Padding="16,12" Margin="0,16,0,0"
+                Visibility="{Binding HasRecommendation, Converter={StaticResource BoolVisibility}}">
+            <Grid>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{Binding RecommendationTitle}" FontWeight="SemiBold"
+                               Foreground="{StaticResource Brush.Text.Primary}" FontSize="13" />
+                    <TextBlock Text="{Binding RecommendationDetail}" FontSize="11"
+                               Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,3,0,0" TextWrapping="Wrap" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Style="{StaticResource TidyC.Button.Ghost}" Content="查看隔离区" Margin="0,0,8,0"
+                            Command="{Binding OpenQuarantineCommand}" />
+                    <Button Style="{StaticResource TidyC.Button.Safe}" Content="载入安全清理向导 →" Padding="18,8"
+                            Command="{Binding OpenWizardCommand}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

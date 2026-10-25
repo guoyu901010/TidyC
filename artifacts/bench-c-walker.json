@@ -1,0 +1,10 @@
+{
+  "root": "C:\\",
+  "engine": "DIRECTORY_TREE_WALKER",
+  "files": 1487018,
+  "directories": 367426,
+  "attributed_bytes": 195897831424,
+  "elapsed_seconds": 36.371,
+  "access_denied": 254,
+  "run_at": "2026-10-25T19:49:18.1247751+08:00"
+}

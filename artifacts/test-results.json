@@ -1,0 +1,625 @@
+{
+  "generated_at": "2026-10-25T20:06:16.0580346+08:00",
+  "total": 88,
+  "passed": 88,
+  "failed": 0,
+  "duration_seconds": 1.852,
+  "tests": [
+    {
+      "Name": "AppDataAnalyzerTests.ClassifiesGreenCache",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 121.9
+    },
+    {
+      "Name": "AppDataAnalyzerTests.ClassifiesRedLocalStorage",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 13.8
+    },
+    {
+      "Name": "AppDataAnalyzerTests.DoesNotTraverseJunctions",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 79.3
+    },
+    {
+      "Name": "AppDataAnalyzerTests.EveryItemHasCompleteNarrative",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 49.6
+    },
+    {
+      "Name": "AppDataAnalyzerTests.IgnoresMissingTargets",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 7.4
+    },
+    {
+      "Name": "AppDataAnalyzerTests.MatchesCaseInsensitively",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 12.1
+    },
+    {
+      "Name": "AppDataAnalyzerTests.MatchesWildcardVersionFolder",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 20.7
+    },
+    {
+      "Name": "AppDataAnalyzerTests.MeasuresDirectoryRuleRecursively",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 18.6
+    },
+    {
+      "Name": "AppDataAnalyzerTests.ProtectsUwpPackageSandbox",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 16
+    },
+    {
+      "Name": "AppDataAnalyzerTests.RespectsRequestedScopes",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 25
+    },
+    {
+      "Name": "AppDataAnalyzerTests.SerializesContractSchema",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 104.1
+    },
+    {
+      "Name": "AppDataAnalyzerTests.SummaryReconcilesWithItems",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 20.9
+    },
+    {
+      "Name": "AppDataAnalyzerTests.UnknownFolderBecomesGrayAndLocked",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 10.7
+    },
+    {
+      "Name": "DirectoryTreeWalkerTests.CleanupPlanner_FindsWhitelistedTargets",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 18.8
+    },
+    {
+      "Name": "DirectoryTreeWalkerTests.Walk_CountsFilesAndAllocatedBytes",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 11.2
+    },
+    {
+      "Name": "DirectoryTreeWalkerTests.Walk_RespectsMaxDepth",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 3.8
+    },
+    {
+      "Name": "DirectoryTreeWalkerTests.Walk_SkipsJunctionTargets",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 60.5
+    },
+    {
+      "Name": "HandleGuardTests.CaptureReturnsStableIdentity",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 10.4
+    },
+    {
+      "Name": "HandleGuardTests.DeleteTreeVerified_RemovesTreeButKeepsJunctionTargets",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 59.1
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_HandlesExtendedLongPaths",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 5.3
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_LockedFileFailsGracefully",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 2.7
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_MissingFileReturnsNotFound",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 3.7
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_RefusesProtectedSystemPath",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_RejectsJunctionToSystemDirectory",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 50.3
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_RejectsSwappedFile",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 4.7
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_RemovesFile",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 3
+    },
+    {
+      "Name": "HandleGuardTests.DeleteVerified_RemovesReadOnlyFile",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 3.2
+    },
+    {
+      "Name": "HandleGuardTests.MoveVerified_RejectsJunction",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 61.8
+    },
+    {
+      "Name": "HandleGuardTests.MoveVerified_RenamesInPlace",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 7
+    },
+    {
+      "Name": "JournalTests.Append_IsThreadSafe",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 481.2
+    },
+    {
+      "Name": "JournalTests.Append_WritesJsonlAndVerifies",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 45.4
+    },
+    {
+      "Name": "JournalTests.JournalFile_IsAppendOnly",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 28.1
+    },
+    {
+      "Name": "JournalTests.Reopen_ContinuesHashChain",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 34.4
+    },
+    {
+      "Name": "JournalTests.VerifyChain_DetectsTamperedLine",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 39.6
+    },
+    {
+      "Name": "MftRecordParserTests.AcceptsWindowsAndDosCombinedNamespace",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 21.4
+    },
+    {
+      "Name": "MftRecordParserTests.AppliesUsaFixupAcrossSectorBoundary",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "MftRecordParserTests.ParsesDirectoryFlag",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "MftRecordParserTests.ParsesLastWriteTimestamp",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.7
+    },
+    {
+      "Name": "MftRecordParserTests.ParsesNamedFile",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 4.4
+    },
+    {
+      "Name": "MftRecordParserTests.ParsesNonResidentAllocatedSize",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.6
+    },
+    {
+      "Name": "MftRecordParserTests.ParsesTwoHardLinkParents",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 2.2
+    },
+    {
+      "Name": "MftRecordParserTests.PrefersLongNameOverDosAlias",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsAttributeListRecord",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsBadSignature",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsCorruptAttributeLength",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsDeletedRecord",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsDosShortNameOnly",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.3
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsExtensionRecord",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsRecordWithoutFileName",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsTruncatedRecord",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.6
+    },
+    {
+      "Name": "MftRecordParserTests.RejectsUsaMismatch",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 1.1
+    },
+    {
+      "Name": "QuarantineManagerTests.LoadBatches_ReloadsManifestFromDisk",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 7.4
+    },
+    {
+      "Name": "QuarantineManagerTests.Move_DirectoryTree_RoundTrips",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 6.2
+    },
+    {
+      "Name": "QuarantineManagerTests.Move_RejectsProtectedSource",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 3.6
+    },
+    {
+      "Name": "QuarantineManagerTests.Move_SkipsLockedFileWithoutThrowing",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 4.3
+    },
+    {
+      "Name": "QuarantineManagerTests.Move_UsesAtomicRename_AndStaysFast",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 10.7
+    },
+    {
+      "Name": "QuarantineManagerTests.Move_WritesJournalHashChain",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 34.1
+    },
+    {
+      "Name": "QuarantineManagerTests.PurgeExpired_OnlyTouchesExpiredBatches",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 28.2
+    },
+    {
+      "Name": "QuarantineManagerTests.Purge_DeletesPayloadAndReportsFreedBytes",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 37
+    },
+    {
+      "Name": "QuarantineManagerTests.Restore_CannotRunTwice",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 36.5
+    },
+    {
+      "Name": "QuarantineManagerTests.Restore_RejectsTamperedPayload",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 5.6
+    },
+    {
+      "Name": "QuarantineManagerTests.Restore_RenamesConflictingLiveFileAside",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 23.9
+    },
+    {
+      "Name": "QuarantineManagerTests.Restore_ReturnsFileToOriginalPath",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 38.5
+    },
+    {
+      "Name": "QuarantineManagerTests.Statistics_KeepStagedAndPurgedHonest",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 37.2
+    },
+    {
+      "Name": "RuleValidatorTests.AllowsWindowsTempRule",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 9.6
+    },
+    {
+      "Name": "RuleValidatorTests.BuiltInRuleSet_PassesValidation",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 10.4
+    },
+    {
+      "Name": "RuleValidatorTests.EnsureValid_ThrowsForBadRuleSet",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 2.6
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsDriveRootPattern",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.8
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsDuplicateIds",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsMissingNarrative",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.7
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsParentTraversal",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.6
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsPersonalDownloadsFolder",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsProgramFiles",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsWholeDirectoryOutsideWindowsOld",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "RuleValidatorTests.RejectsWindowsSystem32",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.4
+    },
+    {
+      "Name": "ScanPipelineTests.MftScanBuilder_BuildsTreeAndDeduplicatesHardLinks",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 13.9
+    },
+    {
+      "Name": "ScanPipelineTests.ScanRecord_ReportsHonestBlindspot",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 6.2
+    },
+    {
+      "Name": "ScanPipelineTests.ScanResultBuilder_ClassifiesAndReconciles",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 1.9
+    },
+    {
+      "Name": "SelfTestTests.Compare_DetectsDivergence",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 17.6
+    },
+    {
+      "Name": "SelfTestTests.Compare_IdenticalEnginesPass",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 3.3
+    },
+    {
+      "Name": "TreeOpsTests.Aggregate_RollsUpDirectAndChildBytes",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "TreeOpsTests.CategoryOfPath_ClassifiesSystemBuckets",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.3
+    },
+    {
+      "Name": "TreeOpsTests.Reconcile_ComputesNonNegativeBlindspot",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 1.7
+    },
+    {
+      "Name": "TreeOpsTests.TopDirectories_SortsBySizeDescending",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 0.5
+    },
+    {
+      "Name": "TreemapTests.Layout_HandlesEmptyAndSingleInput",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 11.3
+    },
+    {
+      "Name": "TreemapTests.Layout_KeepsAreasProportional",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 3
+    },
+    {
+      "Name": "TreemapTests.Layout_StaysInsideBoundsWithoutOverlap",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 1.2
+    },
+    {
+      "Name": "TreemapTests.Tiler_AssignsNestedRectsAndHitTests",
+      "Passed": true,
+      "Error": null,
+      "StackTrace": null,
+      "DurationMs": 4
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+2026-10-25T19:17:46.0391091+08:00 start dir=C:\Users\guoyu\Downloads\TidyC\artifacts\screens
+2026-10-25T19:17:46.3445593+08:00 services ready demo=True root=C:\Users\guoyu\AppData\Local\TidyC\DemoQuarantine
+2026-10-25T19:17:47.8527123+08:00 window shown actual=1440x920
+2026-10-25T19:17:49.9054176+08:00 saved 01-overview.png 1440x920
+2026-10-25T19:17:50.4978423+08:00 saved 02-treemap.png 1440x920
+2026-10-25T19:17:51.4640328+08:00 saved 03-large-files.png 1440x920
+2026-10-25T19:17:52.7247173+08:00 saved 04-appdata.png 1440x920
+2026-10-25T19:17:53.5054722+08:00 saved 05-clean-wizard.png 1440x920
+2026-10-25T19:17:54.2677149+08:00 saved 06-quarantine.png 1440x920
+2026-10-25T19:17:55.0693837+08:00 saved 07-scan-records.png 1440x920
+2026-10-25T19:17:55.0720443+08:00 nav pass1 overview set=1.2ms layout=1.0ms
+2026-10-25T19:17:55.1348466+08:00 nav pass1 treemap set=1.8ms layout=2.0ms
+2026-10-25T19:17:55.1982922+08:00 nav pass1 large set=2.3ms layout=3.0ms
+2026-10-25T19:17:55.2592574+08:00 nav pass1 appdata set=3.2ms layout=1.2ms
+2026-10-25T19:17:55.3208247+08:00 nav pass1 clean set=2.9ms layout=1.2ms
+2026-10-25T19:17:55.4518836+08:00 nav pass1 quarantine set=14.9ms layout=56.7ms
+2026-10-25T19:17:55.5736977+08:00 nav pass1 records set=7.5ms layout=60.1ms
+2026-10-25T19:17:55.6369526+08:00 nav pass2 overview set=1.5ms layout=1.6ms
+2026-10-25T19:17:55.7008213+08:00 nav pass2 treemap set=2.9ms layout=2.0ms
+2026-10-25T19:17:55.7653053+08:00 nav pass2 large set=3.4ms layout=2.4ms
+2026-10-25T19:17:55.8322692+08:00 nav pass2 appdata set=6.1ms layout=3.6ms
+2026-10-25T19:17:55.8901350+08:00 nav pass2 clean set=2.8ms layout=1.3ms
+2026-10-25T19:17:55.9526976+08:00 nav pass2 quarantine set=2.5ms layout=2.0ms
+2026-10-25T19:17:56.0161187+08:00 nav pass2 records set=4.4ms layout=1.6ms
+2026-10-25T19:17:57.0358285+08:00 saved 05b-wizard-confirm.png 1440x920
+2026-10-25T19:17:58.5805151+08:00 saved 05c-wizard-result.png 1440x920
+2026-10-25T19:17:59.5113671+08:00 saved 06b-quarantine-detail.png 1440x920

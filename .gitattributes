@@ -1,0 +1,9 @@
+* text=auto eol=crlf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.exe binary
+*.dll binary
+*.zip binary
+*.jsonl binary

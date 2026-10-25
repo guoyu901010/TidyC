@@ -1,0 +1,148 @@
+<UserControl x:Class="TidyC.App.Views.TreemapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:TidyC.App.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="900" d:DesignWidth="1180"
+             Background="Transparent">
+    <Grid Margin="30,20,30,22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header + breadcrumbs -->
+        <Grid Grid.Row="0" Margin="0,0,0,14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="占用树图" Style="{StaticResource Text.Title}" />
+                    <Border Style="{StaticResource Pill.Accent}" Margin="12,0,0,0">
+                        <TextBlock Text="{Binding DepthHint}" FontSize="10.5" Foreground="{StaticResource Brush.Primary.Soft}" />
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0" VerticalAlignment="Center">
+                    <ItemsControl ItemsSource="{Binding Breadcrumbs}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource TidyC.Button.Ghost}" Padding="4,2"
+                                            Command="{Binding DataContext.NavigateCrumbCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}">
+                                        <TextBlock Text="{Binding Name}" FontSize="12" Foreground="{StaticResource Brush.Primary.Soft}" />
+                                    </Button>
+                                    <TextBlock Text="/" FontSize="12" Foreground="{StaticResource Brush.Text.Disabled}"
+                                               VerticalAlignment="Center" Margin="1,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Style="{StaticResource TidyC.Button.Ghost}" Padding="6,2" Margin="4,0,0,0"
+                            Command="{Binding DrillUpCommand}" ToolTip="返回上一级目录">
+                        <TextBlock Text="上升一级" FontSize="11" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{Binding RootSummary}" Style="{StaticResource Text.Caption}" VerticalAlignment="Center" Margin="0,0,14,0" />
+                <Button Style="{StaticResource TidyC.Button.Secondary}" Click="Export_Click" ToolTip="把当前树图渲染为 2x PNG">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE74E;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="12" VerticalAlignment="Center" />
+                        <TextBlock Text="导出树图 (PNG)" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Master / detail -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3.2*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="1*" MinWidth="300" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="{StaticResource Brush.Surface.ContainerLowest}"
+                    BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1"
+                    CornerRadius="6" ClipToBounds="True" x:Name="TreemapHostBorder">
+                <controls:TreemapControl x:Name="TreemapHost"
+                                         Root="{Binding Root}"
+                                         SelectedNode="{Binding SelectedNode}"
+                                         MaxDepth="5"
+                                         NodeSelected="Treemap_NodeSelected"
+                                         NodeActivated="Treemap_NodeActivated" />
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource TidyC.Container.Card}" Padding="18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="选中节点排查与属性" Style="{StaticResource Text.H2}" />
+                        <TextBlock Text="单击色块查看，双击继续下钻" Style="{StaticResource Text.Caption}" Margin="0,4,0,0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="0,16,0,0">
+                        <TextBlock Text="{Binding SelectedName}" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Brush.Primary.Soft}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding SelectedPath}" Style="{StaticResource Text.Mono}" Margin="0,6,0,0"
+                                   TextWrapping="Wrap" MaxHeight="70" ToolTip="{Binding SelectedPath}" />
+                        <TextBlock Text="{Binding SelectedSize}" Style="{StaticResource Text.Caption}" Margin="0,10,0,0" />
+                        <TextBlock Text="{Binding SelectedCounts}" Style="{StaticResource Text.Caption}" Margin="0,4,0,0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Margin="0,16,0,0">
+                        <Border Style="{StaticResource TidyC.Separator}" Margin="0,0,0,12" />
+                        <TextBlock Text="安全判定" Style="{StaticResource Text.Label}" Margin="0,0,0,6" />
+                        <TextBlock Text="{Binding SelectedHint}" Style="{StaticResource Text.Body}" FontSize="11.5" />
+                        <Border Style="{StaticResource TidyC.Container.Inset}" Margin="0,14,0,0"
+                                Visibility="{Binding CanMoveSelection, Converter={StaticResource BoolVisibility}}">
+                            <StackPanel>
+                                <TextBlock Text="命中白名单，可安全搬移" FontSize="11.5" FontWeight="SemiBold"
+                                           Foreground="{StaticResource Brush.Risk.Safe.Light}" />
+                                <TextBlock Text="同卷原子改名 &lt; 0.1s · 14 天可逆 · FileId 二次校验"
+                                           Style="{StaticResource Text.Caption}" Margin="0,4,0,0" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <Button Grid.Row="3" Style="{StaticResource TidyC.Button.Safe}" Margin="0,16,0,0" Padding="12,9"
+                            Command="{Binding MoveSelectedCommand}" IsEnabled="{Binding CanMoveSelection}"
+                            Content="将该项移入隔离区 →" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Status strip -->
+        <Border Grid.Row="2" Margin="0,12,0,0" Background="{StaticResource Brush.Surface.ContainerLow}"
+                BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="6" Padding="14,8">
+            <Grid>
+                <TextBlock Text="NTFS 驱动级直读 · 不穿透 Junction 链接 · 自动抑制 TOCTOU 竞争篡改 · 矩块面积 = 分配大小"
+                           FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Ellipse Width="6" Height="6" Fill="{StaticResource Brush.Risk.Safe.Light}" VerticalAlignment="Center" />
+                    <TextBlock Text="Squarified Treemap · Core 纯几何布局" Style="{StaticResource Text.Caption}" Margin="6,0,0,0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

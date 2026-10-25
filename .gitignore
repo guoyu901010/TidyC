@@ -1,0 +1,12 @@
+bin/
+obj/
+publish/
+.test-tmp/
+artifacts/bundle/
+artifacts/screens-publish/
+artifacts/release/
+artifacts/screens-*/
+*.user
+*.suo
+.vs/
+TidyC-Data/
