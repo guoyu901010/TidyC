@@ -1,5 +1,12 @@
 # TidyC — C 盘空间扫描与安全清理（.NET 8 + WPF）
 
+[![build](https://github.com/guoyu901010/TidyC/actions/workflows/build.yml/badge.svg)](https://github.com/guoyu901010/TidyC/actions/workflows/build.yml)
+[![release](https://img.shields.io/github/v/release/guoyu901010/TidyC?display_name=tag)](https://github.com/guoyu901010/TidyC/releases)
+
+仓库：[github.com/guoyu901010/TidyC](https://github.com/guoyu901010/TidyC) ·
+下载：[最新 Release](https://github.com/guoyu901010/TidyC/releases)（`TidyC.exe` 单文件版 / `TidyC-v2.4.0-win-x64.zip`） ·
+构建产物：`publish\TidyC.exe`（单文件）、`publish\app\TidyC.exe`（文件夹版）
+
 > 扫出 C 盘被什么占满，并以「白名单 + 四级风险 + 隔离区可恢复」的方式安全清理。
 > 默认不删除任何文件：清理 = 同卷零拷贝原子改名到隔离区，14 天内可原路还原。
 

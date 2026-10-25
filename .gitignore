@@ -10,3 +10,4 @@ artifacts/screens-*/
 *.suo
 .vs/
 TidyC-Data/
+.token
