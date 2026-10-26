@@ -141,8 +141,16 @@ public partial class QuarantineViewModel : ViewModelBase
 
     public bool HasSelectedBatch => SelectedBatch is not null;
 
-    partial void OnSelectedBatchChanged(QuarantineBatchRow? value) =>
+    public bool CanRestoreSelected => SelectedBatch?.CanRestore == true;
+
+    public bool CanPurgeSelected => SelectedBatch?.CanPurge == true;
+
+    partial void OnSelectedBatchChanged(QuarantineBatchRow? value)
+    {
         OnPropertyChanged(nameof(HasSelectedBatch));
+        OnPropertyChanged(nameof(CanRestoreSelected));
+        OnPropertyChanged(nameof(CanPurgeSelected));
+    }
 
     private DateTime _lastRefreshUtc = DateTime.MinValue;
 
@@ -175,6 +183,8 @@ public partial class QuarantineViewModel : ViewModelBase
 
         HasBatches = Batches.Count > 0;
         SelectedBatch = Batches.FirstOrDefault(b => b.BatchId == selectedId) ?? Batches.FirstOrDefault();
+        OnPropertyChanged(nameof(CanRestoreSelected));
+        OnPropertyChanged(nameof(CanPurgeSelected));
         StatusText = HasBatches
             ? $"{Batches.Count} 个批次 · 暂存 {StagedText} · 已物理释放 {PurgedText}"
             : "隔离区为空 · 所有清理都从这里的可逆暂存开始";
@@ -215,7 +225,7 @@ public partial class QuarantineViewModel : ViewModelBase
     [RelayCommand]
     private async Task RestoreAsync(QuarantineBatchRow? row)
     {
-        if (row is null || IsBusy)
+        if (row is null || IsBusy || !row.CanRestore)
         {
             return;
         }
@@ -257,7 +267,7 @@ public partial class QuarantineViewModel : ViewModelBase
     [RelayCommand]
     private async Task PurgeAsync(QuarantineBatchRow? row)
     {
-        if (row is null || IsBusy)
+        if (row is null || IsBusy || !row.CanPurge)
         {
             return;
         }

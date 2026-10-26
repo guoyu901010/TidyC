@@ -184,10 +184,10 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                             <Button Style="{StaticResource TidyC.Button.Safe}" Content="一键原子还原" Padding="12,6"
-                                    IsEnabled="{Binding HasSelectedBatch}"
+                                    IsEnabled="{Binding CanRestoreSelected}"
                                     Command="{Binding RestoreCommand}" CommandParameter="{Binding SelectedBatch}" />
                             <Button Style="{StaticResource TidyC.Button.Danger}" Content="物理彻底抹除" Padding="12,6" Margin="8,0,0,0"
-                                    IsEnabled="{Binding HasSelectedBatch}"
+                                    IsEnabled="{Binding CanPurgeSelected}"
                                     Command="{Binding PurgeCommand}" CommandParameter="{Binding SelectedBatch}" />
                         </StackPanel>
                     </Grid>

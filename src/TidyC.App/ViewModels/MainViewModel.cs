@@ -194,6 +194,8 @@ public partial class MainViewModel : ViewModelBase, IAppShell
 
         IsScanning = true;
         ScanProgress = 0;
+        ScanDetailText = string.Empty;
+        StatusText = "正在扫描 C:（只读，不写入任何文件）…";
         using var scanCts = new CancellationTokenSource();
         _scanCts = scanCts;
         try

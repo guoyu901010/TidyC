@@ -169,8 +169,9 @@ public sealed class CountToVisibilityConverter : IValueConverter
 
 public sealed class EmptyStringToVisibilityConverter : IValueConverter
 {
+    // Placeholder semantics: visible while the input is empty, hidden afterwards.
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        string.IsNullOrWhiteSpace(value as string) ? Visibility.Collapsed : Visibility.Visible;
+        string.IsNullOrWhiteSpace(value as string) ? Visibility.Visible : Visibility.Collapsed;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
         Binding.DoNothing;

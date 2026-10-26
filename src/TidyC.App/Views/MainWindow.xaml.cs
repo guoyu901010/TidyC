@@ -152,11 +152,15 @@ public partial class MainWindow : Window
 
         foreach (Border host in _pageCache.Values)
         {
-            if (ReferenceEquals(host, selected) || host.Visibility != Visibility.Visible)
+            if (ReferenceEquals(host, selected))
             {
                 continue;
             }
 
+            // Hidden (not Collapsed) keeps the prewarmed measure/arrange so the
+            // next switch is still instant, while taking the page out of
+            // rendering and the accessibility tree.
+            host.Visibility = Visibility.Hidden;
             host.IsHitTestVisible = false;
             KeyboardNavigation.SetTabNavigation(host, KeyboardNavigationMode.None);
             Panel.SetZIndex(host, 0);
