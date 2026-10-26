@@ -5,6 +5,7 @@
 
 仓库：[github.com/guoyu901010/TidyC](https://github.com/guoyu901010/TidyC) ·
 下载：[最新 Release](https://github.com/guoyu901010/TidyC/releases)（`TidyC.exe` 单文件版 / `TidyC-v2.4.0-win-x64.zip`） ·
+安装：`publish\TidyC-Setup.exe`（按用户安装，无需管理员） ·
 构建产物：`publish\TidyC.exe`（单文件）、`publish\app\TidyC.exe`（文件夹版）
 
 > 扫出 C 盘被什么占满，并以「白名单 + 四级风险 + 隔离区可恢复」的方式安全清理。
@@ -124,15 +125,26 @@ dotnet publish src/TidyC.App/TidyC.App.csproj -c Release -r win-x64 --self-conta
 - `publish\TidyC.exe`（单文件自包含，约 69 MB）
 - `publish\TidyC.cmd`（启动器，自动设置可写的单文件解压目录）
 - `publish\app\TidyC.exe`（自包含文件夹版，不依赖解压目录，提权最稳）
+- `publish\TidyC-Setup.exe`（安装程序，按用户安装，无需管理员）
 - `publish\README.txt`（发布目录说明）
 
 ```text
 publish\
-  TidyC.exe      单文件自包含版
-  TidyC.cmd      单文件启动器（设置可写解压目录）
-  README.txt     发布说明
-  app\          自包含文件夹版（app\TidyC.exe + .NET/WPF 运行时）
+  TidyC-Setup.exe  安装程序（推荐）
+  TidyC.exe        单文件自包含版
+  TidyC.cmd        单文件启动器（设置可写解压目录）
+  README.txt       发布说明
+  app\             自包含文件夹版（app\TidyC.exe + .NET/WPF 运行时）
 ```
+
+安装程序：
+
+- 构建：`powershell -NoProfile -ExecutionPolicy Bypass -File tools/Build-Installer.ps1`
+- 默认安装到 `%LOCALAPPDATA%\Programs\TidyC`，快捷方式写入开始菜单/桌面，卸载登记在
+  `HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\TidyC`（设置 → 应用 可见）。
+- 卸载：开始菜单「卸载 TidyC」，或 `wscript "<安装目录>\uninstall.vbs"`；不会删除隔离区与扫描记录。
+- 静默安装：`TidyC-Setup.exe --silent --dir <目录> [--no-desktop] [--launch]`。
+- 安装包未做代码签名，从网络下载后 SmartScreen 可能提示，可选「更多信息 → 仍要运行」。
 
 单文件首次运行会把原生库解压到 `%TEMP%\.net`；若该目录不可写（受限容器/组策略），
 请双击 `TidyC.cmd`，或改用 `publish\app\TidyC.exe`，也可以手动设置

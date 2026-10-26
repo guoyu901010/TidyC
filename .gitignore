@@ -15,3 +15,4 @@ tools/gh/
 artifacts/gh-*.json
 artifacts/gh-*.txt
 artifacts/repo.json
+installer/TidyC.Setup/payload.zip

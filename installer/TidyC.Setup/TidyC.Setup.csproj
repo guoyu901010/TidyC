@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>TidyC-Setup</AssemblyName>
+    <RootNamespace>TidyC.Setup</RootNamespace>
+    <StartupObject>TidyC.Setup.App</StartupObject>
+    <ApplicationIcon>Assets\TidyC.ico</ApplicationIcon>
+    <Version>2.4.0</Version>
+    <FileVersion>2.4.0.0</FileVersion>
+    <AssemblyVersion>2.4.0.0</AssemblyVersion>
+    <Company>TidyC</Company>
+    <Product>TidyC 安装程序</Product>
+    <Description>TidyC — Windows C 盘扫描与安全清理 安装程序</Description>
+    <Copyright>Copyright © 2026 TidyC contributors</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\TidyC.ico" />
+    <EmbeddedResource Include="payload.zip" LogicalName="TidyC.Setup.payload.zip" Condition="Exists('payload.zip')" />
+  </ItemGroup>
+
+</Project>
