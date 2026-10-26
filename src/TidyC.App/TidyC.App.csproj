@@ -18,7 +18,7 @@
     <Product>TidyC 磁盘空间扫描与安全清理</Product>
     <Description>TidyC — Windows C 盘扫描、物理占用归因与安全清理（TidyC 规范实现）</Description>
     <Copyright>Copyright © 2026 TidyC contributors</Copyright>
-    <ApplicationIcon>Assets\TidyC.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\TidyC.ico" />
+    <Resource Include="Assets\app.ico" />
   </ItemGroup>
 
   <ItemGroup>

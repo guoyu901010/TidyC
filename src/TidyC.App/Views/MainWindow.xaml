@@ -6,7 +6,7 @@
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         mc:Ignorable="d"
         Title="TidyC"
-        Icon="pack://application:,,,/Assets/TidyC.ico"
+        Icon="/Assets/app.ico"
         Width="1440"
         Height="920"
         MinWidth="1180"
