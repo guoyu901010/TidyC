@@ -53,16 +53,12 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="14,0,0,0" VerticalAlignment="Center">
-                    <Border Width="26" Height="26" CornerRadius="7">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#4CC2FF" Offset="0" />
-                                <GradientStop Color="#0078D4" Offset="1" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <TextBlock Text="&#xE7B8;" FontFamily="{StaticResource FontFamily.FluentIcon}" FontSize="13"
-                                   Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
+                    <Image Width="28" Height="28" Source="/Assets/app.png"
+                           RenderOptions.BitmapScalingMode="HighQuality" ToolTip="TidyC">
+                        <Image.Effect>
+                            <DropShadowEffect Color="#4CC2FF" BlurRadius="14" ShadowDepth="0" Opacity="0.45" />
+                        </Image.Effect>
+                    </Image>
                     <TextBlock Text="TidyC" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"
                                Foreground="{StaticResource Brush.Text.Primary}" Margin="10,0,0,0" />
                     <TextBlock Text="C 盘空间扫描与安全清理" FontSize="11.5" VerticalAlignment="Center"
